@@ -1,8 +1,8 @@
-# DFF
+# Frozen LVLMs for Micro-Video Recommendation
 
-**D**ual-path **F**eature **F**usion for sequential recommendation: **ID + video (VLLM)** with learnable gating, SASRec user encoder.
+Official implementation of **Frozen LVLMs for Micro-Video Recommendation: A Systematic Study of Feature Extraction and Fusion**.
 
-This repo contains only `dff_id_v` (no audio, no diffusion, no PMRL).
+**Accepted at ICMR 2026.**
 
 ## Model
 
