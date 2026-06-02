@@ -1,0 +1,7 @@
+torch>=2.0
+numpy
+pandas
+tqdm
+tensorboard
+einops
+diffusers>=0.25

@@ -9,12 +9,20 @@ venv/
 dist/
 build/
 
-data/
+data/*
+!data/README.md
 checkpoint/
 tblogs/
 logs/
+inferred_embs/
+star_tblogs/
+result/
+tmp/
 *.log
+*.csv
 
 .DS_Store
 .idea/
 .vscode/
+
+requirements-lock.txt
