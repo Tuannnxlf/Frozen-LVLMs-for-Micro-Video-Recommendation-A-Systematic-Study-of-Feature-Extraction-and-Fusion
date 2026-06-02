@@ -1,42 +1,37 @@
 # DFF
 
-Conference follow-up codebase for **D**iffusion / multimodal **F**usion recommendation on MicroLens-100k.
+**D**ual-path **F**eature **F**usion for sequential recommendation: **ID + video (VLLM)** with learnable gating, SASRec user encoder.
 
-Migrated from `vllmembs4rec/sasrec` (essential training code only; no checkpoints, logs, or raw data).
+This repo contains only `dff_id_v` (no audio, no diffusion, no PMRL).
 
-## Methods
+## Model
 
-| `--method` | Description |
-|------------|-------------|
-| `only_id` | ID-only SASRec baseline |
-| `dff_id_v` | DFF: ID + video fusion |
-| `dff_id_a` | DFF: ID + audio |
-| `dff_diffusion_id_v_condition_a` | Diffusion, video denoise conditioned on audio |
-| `dff_diffusion_id_a_condition_v` | Diffusion, audio denoise conditioned on video |
+- ID embedding + multi-layer video features (weighted sum + projection)
+- Gating: `score = gate * id + (1 - gate) * video`
+- Training: SASRec next-item loss on fused item embeddings
 
 ## Layout
 
 ```
 DFF/
-├── main.py           # train / eval entry
-├── model/            # SASRec + DFF + diffusion models
-├── utils/            # data, metrics, logging
-├── run_sh/           # example launch scripts
-├── data/             # put MicroLens-100k here (see data/README.md)
-├── requirements.txt
-└── requirements-lock.txt   # full pip freeze from original env (reference)
+├── main.py
+├── model/
+│   ├── model_dff.py      # Model_dff_id_v
+│   ├── user_encoders.py  # SASRec transformer
+│   └── modules.py
+├── utils/
+├── run_sh/run_dff_id_v.sh
+└── data/                 # see data/README.md
 ```
 
-## Quick start
+## Run
 
 ```bash
 cd /opt/data/private/work/DFF
 pip install -r requirements.txt
-# prepare data/MicroLens-100k (see data/README.md)
 bash run_sh/run_dff_id_v.sh
 ```
 
-## Provenance
+## Data
 
-- Source: `/opt/data/private/work/vllmembs4rec/sasrec`
-- Excluded: `data/`, `checkpoint/`, `logs/`, `tblogs/`, `result/`, `sasrec copy/`, `MicroLens-master.zip`
+See `data/README.md`. Default video features: `data/MicroLens-100k/features/all_layers_tensor.pt`
